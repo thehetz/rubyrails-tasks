@@ -11,6 +11,9 @@ steps:
   inputs:
     versionSpec: '>= 2.5'
 
+- script: gem install mysql2 -v '0.5.2' --source 'https://rubygems.org/'
+  displayName: 'gem install mysql2'
+
 - script: |
     gem install bundler
     bundle install --retry=3 --jobs=4 --path vendor/bundle
