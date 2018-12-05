@@ -21,3 +21,7 @@
 # Ignore vendor files
 /vendor
 /public/assets
+/.vs/VSWorkspaceState.json
+/.vs/slnx.sqlite
+/.vs/rubyrails-tasks/v15/.suo
+/.vs/ProjectSettings.json
