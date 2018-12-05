@@ -11,12 +11,9 @@ steps:
   inputs:
     versionSpec: '>= 2.5'
 
-- script: gem install rails && rails -v
-  displayName: 'gem install rails'
-
 - script: |
     gem install bundler
-    bundle install --retry=3 --jobs=4
+    bundle install --retry=3 --jobs=4 --path vendor/bundle
   displayName: 'bundle install'
 
 - script: bundle exec rake
