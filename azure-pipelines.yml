@@ -12,7 +12,7 @@ steps:
     versionSpec: '>= 2.5'
 
 - script: gem install mysql
-  displayname: 'gem install mysql'
+  displayName: 'gem install mysql'
  
 - script: gem install rails && rails -v
   displayName: 'gem install rails'
