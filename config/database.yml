@@ -15,11 +15,12 @@
 # gem 'pg'
 #
 default: &default
-  adapter: postgresql
-  encoding: unicode
+  adapter: mysql2
   # For details on connection pooling, see Rails configuration guide
   # http://guides.rubyonrails.org/configuring.html#database-pooling
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username: chhetzle@mdlivemysql
+  password: Charlee1218
+  host: mdlivemysql.mysql.database.azure.com
 
 development:
   <<: *default
@@ -53,6 +54,7 @@ test:
 #
 production:
   <<: *default
-  database: railstasks_production
-  username: railstasks
-  password: <%= ENV['RAILSTASKS_DATABASE_PASSWORD'] %>
+  host: <%= ENV['DB_HOST'] %>
+  database: <%= ENV['DB_DATABASE'] %>
+  username: <%= ENV['DB_USERNAME'] %>
+  password: <%= ENV['DB_PASSWORD'] %>>
