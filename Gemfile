@@ -14,7 +14,7 @@ gem 'less-rails'
 gem 'twitter-bootstrap-rails'
 gem 'jquery-rails'
 # Use mysql as the database for Active Record
-#gem 'mysql', '~> 2.9', '>= 2.9.1'
+gem 'mysql2', '~> 0.5.2'
 # Use Puma as the app server
 gem 'puma', '~> 3.7'
 # Use SCSS for stylesheets
