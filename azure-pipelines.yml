@@ -11,8 +11,8 @@ steps:
   inputs:
     versionSpec: '>= 2.5'
 
-- script: gem install mysql2 -v '0.5.2' --source 'https://rubygems.org/'
-  displayName: 'gem install mysql2'
+- script: sudo apt-get install mysql-client
+  displayName: 'install MySql-client'
 
 - script: |
     gem install bundler
