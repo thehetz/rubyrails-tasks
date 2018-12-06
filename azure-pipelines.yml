@@ -21,3 +21,13 @@ steps:
 
 - script: bundle exec rake db:migrate
   displayName: 'bundle exec rake migrate'
+
+ - task: ArchiveFiles@1
+   displayName: 'Archive files'
+   inputs:
+    rootFolder: '$(System.DefaultWorkingDirectory)/Application'
+    includeRootFolder: false
+    archiveType: zip
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact: drop'
