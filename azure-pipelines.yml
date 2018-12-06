@@ -11,23 +11,12 @@ steps:
   inputs:
     versionSpec: '>= 2.5'
 
-- script: sudo apt-get install libmysqlclient-dev
-  displayName: 'install MySql-client'
-
-- script: |
-    gem install bundler
-    bundle install --retry=3 --jobs=4 --path vendor/bundle
-  displayName: 'bundle install'
-
-- script: bundle exec rake db:migrate
-  displayName: 'bundle exec rake migrate'
-
  - task: ArchiveFiles@1
    displayName: 'Archive files'
    inputs:
-    rootFolder: '$(System.DefaultWorkingDirectory)'
-    includeRootFolder: false
-    archiveType: zip
+     rootFolder: '$(System.DefaultWorkingDirectory)'
+     includeRootFolder: false
+     archiveType: zip
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact: drop'
