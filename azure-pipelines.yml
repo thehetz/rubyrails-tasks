@@ -13,7 +13,7 @@ steps:
   displayName: 'Archive files'
   inputs:
     rootFolder: '$(System.DefaultWorkingDirectory)'
-    includeRootFolder: false
+    includeRootFolder: true
     archiveType: zip
 
 - task: PublishBuildArtifacts@1
