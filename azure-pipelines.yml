@@ -3,18 +3,42 @@
 # Add steps that install rails, analyze code, save build artifacts, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/ruby
 
-name: $(Date:yyyyMMdd).$(Rev:.r)
+# queue:
+#  name: Hosted Ubuntu 1604
 
-queue:
-  name: Hosted Ubuntu 1604
+pool:
+  vmImage: 'ubuntu-16.04' # other options: 'macOS-10.13', 'vs2017-win2016'
 
 steps:
+- task: UseRubyVersion@0
+  inputs:
+    versionSpec: '>= 2.4'
+    addToPath: true
+
+- script: sudo apt-get update
+  displayName: 'Update packages'
+
+- script: sudo apt-get install libmysqlclient-dev
+  displayName: 'install MySql client'
+
+- script: gem install rails && rails -v
+  displayName: 'gem install rails'
+
+ - script: |
+    gem install bundler
+    bundle install --retry=3 --jobs=4 --path vendor/bundle
+  displayName: 'bundle install'
+
+ - script: bundle exec rake
+  displayName: 'bundle exec rake'
+
 - task: ArchiveFiles@1
   displayName: 'Archive files'
   inputs:
     rootFolder: '$(System.DefaultWorkingDirectory)'
     includeRootFolder: false
     archiveType: zip
+    name: $(Date:yyyyMMdd).$(Rev:.r)
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact: drop'
