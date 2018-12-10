@@ -9,6 +9,9 @@
 pool:
   vmImage: 'ubuntu-16.04' # other options: 'macOS-10.13', 'vs2017-win2016'
 
+variables:
+- group: MDLive-ProdVar
+ 
 steps:
 - task: UseRubyVersion@0
   inputs:
@@ -26,11 +29,11 @@ steps:
     bundle install --retry=3 --jobs=4 --path vendor/bundle
   displayName: 'bundle install'
 
-- script: gem install rails && rails -v
-  displayName: 'gem install rails'
-
-- script: bundle exec rake
+- script: bundle exec rake db:migrate RAILS_ENV=production
   displayName: 'bundle exec rake'
+
+- script: $(RAILS_SECRET)=rails secret
+  displayName: 'Generate secret'
 
 - task: ArchiveFiles@1
   displayName: 'Archive files'
