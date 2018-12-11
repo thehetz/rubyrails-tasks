@@ -29,6 +29,9 @@ steps:
     bundle install --retry=3 --jobs=4 --path vendor/bundle
   displayName: 'bundle install'
 
+- script: gem install rails && rails -v
+  displayName: 'gem install rails'
+
 - script: bundle exec rake db:migrate RAILS_ENV=production
   displayName: 'bundle exec rake'
 
