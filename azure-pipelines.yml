@@ -39,7 +39,7 @@ steps:
 - script: gem install rails && rails -v
   displayName: 'Install rails gem'
 
-- bash: echo $DB_HOST
+- bash: echo $RAILS_ENV
   displayName: 'Set environment variables for rake'
   failOnStderr: true
   env: 
@@ -47,10 +47,11 @@ steps:
     DB_DATABASE: $(DBDATABASE)
     DB_USERNAME: $(DBUSERNAME)
     DB_PASSWORD: $(DBPASSWORD)
+    RAILS_ENV: production
 
 - script: |
     echo $(agentip)
-    $agentip=$(ip route get 8.8.8.8 | awk 'NR==1 {print $NF}')
+    echo "##vso[task.setvariable variable=agentip]$(ip route get 8.8.8.8 | awk 'NR==1 {print $NF}')"
     echo $(agentip)
   displayName: 'Get agent ip address'
 
