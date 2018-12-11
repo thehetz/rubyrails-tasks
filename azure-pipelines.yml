@@ -17,3 +17,9 @@ steps:
   inputs:
     versionSpec: '>= 2.4'
     addToPath: true
+
+- script: sudo apt-get update
+  displayName: 'Update packages'
+
+- script: sudo apt-get install libmysqlclient-dev
+  displayName: 'install MySql client'
