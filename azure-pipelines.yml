@@ -31,3 +31,14 @@ steps:
 
 - script: gem install rails && rails -v
   displayName: 'gem install rails'
+
+- task: ArchiveFiles@2
+  displayName: 'Archive files'
+  inputs:
+    rootFolder: '$(System.DefaultWorkingDirectory)'
+    includeRootFolder: false
+    archiveType: zip
+    name: $(Date:yyyyMMdd).$(Rev:.r)
+
+- task: PublishBuildArtifacts@2
+  displayName: 'Publish Artifact: drop'
