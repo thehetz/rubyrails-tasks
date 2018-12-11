@@ -35,7 +35,8 @@ steps:
 - task: ArchiveFiles@2
   displayName: 'Archive files'
   inputs:
-    rootFolder: '$(System.DefaultWorkingDirectory)'
+    rootFolder: '$(Build.BinariesDirectory)'
     includeRootFolder: false
     archiveType: zip
-    name: $(Date:yyyyMMdd).$(Rev:.r)
+    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
+    replaceExistingArchive: true
