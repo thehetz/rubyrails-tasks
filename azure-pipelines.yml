@@ -23,8 +23,11 @@ steps:
 - script: sudo apt-get update
   displayName: 'Update packages'
 
-- script: sudo apt-get install libmysqlclient-dev mysql-server 
-  displayName: 'Install MySql client'
+- script: sudo apt-get install mysql-server libmysqlclient-dev
+  displayName: 'Install MySql server'
+
+- script: sudo apt-get install libmysqlclient-dev
+  displayName: 'Install MySql client dev'
 
 - script: |
     gem install bundler
