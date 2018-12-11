@@ -32,14 +32,6 @@ steps:
 - script: gem install rails && rails -v
   displayName: 'gem install rails'
 
-- bash: 
-  displayName: 'Set environment varibles for rake job'
-  env:
-    DB-HOST: $(DB-HOST)
-    DB-DATABASE: $(DB-DATABASE)
-    DB-USERNAME: $(DB-USERNAME)
-    DB-PASSWORD: $(DB-PASSWORD)
-
 - script: bundle exec rake db:migrate RAILS_ENV=production
   displayName: 'bundle exec rake'
 
