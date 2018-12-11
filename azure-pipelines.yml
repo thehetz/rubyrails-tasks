@@ -39,6 +39,3 @@ steps:
     includeRootFolder: false
     archiveType: zip
     name: $(Date:yyyyMMdd).$(Rev:.r)
-
-- task: PublishBuildArtifacts@2
-  displayName: 'Publish Artifact: drop'
