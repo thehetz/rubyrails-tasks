@@ -23,3 +23,11 @@ steps:
 
 - script: sudo apt-get install libmysqlclient-dev
   displayName: 'install MySql client'
+
+- script: |
+    gem install bundler
+    bundle install --retry=3 --jobs=4 --path vendor/bundle
+  displayName: 'bundle install'
+
+- script: gem install rails && rails -v
+  displayName: 'gem install rails'
