@@ -32,17 +32,16 @@ steps:
 - script: gem install rails && rails -v
   displayName: 'gem install rails'
 
-- task: ShellScript@2
+- task: Bash@3
   displayName: 'Run export varibles script'
   inputs:
-    scriptPath: exportDBVaribles.sh
-    args: '-h $(DB-HOST) -d $(DB-DATABASE) -u $(DB-USERNAME) -p $(DB-PASSWORD)'
+    targetType: ./
+    filePath: exportDBVaribles.sh
+    arguments: '-h $(DB-HOST) -d $(DB-DATABASE) -u $(DB-USERNAME) -p $(DB-PASSWORD)'
+    failOnStderr: true
 
 - script: bundle exec rake db:migrate RAILS_ENV=production
   displayName: 'bundle exec rake'
-
-# - script: $(RAILS-SECRET)=rails secret
-#  displayName: 'Generate secret'
 
 - task: ArchiveFiles@2
   displayName: 'Archive files'
