@@ -10,8 +10,9 @@ pool:
   vmImage: 'ubuntu-16.04' # other options: 'macOS-10.13', 'vs2017-win2016'
 
 variables:
+- name: agentip
+  value: 127.0.0.1
 - group: MDLive-ProdVar
-  agentip: 127.0.0.1
 
 name: $(Date:yyyyMMdd)$(Rev:.r)
 
@@ -49,7 +50,7 @@ steps:
 
 - script: |
     echo $(agentip)
-    $(agentip)=$(ip route get 8.8.8.8 | awk 'NR==1 {print $NF}')
+    (agentip)=$(ip route get 8.8.8.8 | awk 'NR==1 {print $NF}')
     echo $(agentip)
   displayName: 'Get agent ip address'
 
