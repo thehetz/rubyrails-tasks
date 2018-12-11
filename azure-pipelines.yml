@@ -24,15 +24,24 @@ steps:
   displayName: 'Update packages'
 
 - script: sudo apt-get install libmysqlclient-dev
-  displayName: 'install MySql client'
+  displayName: 'Install MySql client'
 
 - script: |
     gem install bundler
     bundle install --retry=3 --jobs=4 --path vendor/bundle
-  displayName: 'bundle install'
+  displayName: 'Bundle install'
 
 - script: gem install rails && rails -v
-  displayName: 'gem install rails'
+  displayName: 'Install rails gem'
+
+- bash:
+  displayName: "Set environment variables for rake"
+  failOnStderr: true
+  env: echo $DB-HOST
+    DB-HOST: $(DB-HOST)
+    DB-DATABASE: $(DB-DATABASE)
+    DB-USERNAME: $(DB-USERNAME)
+    DB-PASSWORD: $(DB-PASSWORD) 
 
 - task: ArchiveFiles@2
   displayName: 'Archive files'

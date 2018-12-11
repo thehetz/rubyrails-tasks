@@ -9,10 +9,10 @@ end
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.4'
 # Use twitter-bootstrap-rails
-# gem 'therubyracer', '~> 0.12.3'
-# gem 'less-rails', '~> 4.0'
-# gem 'twitter-bootstrap-rails', '~> 4.0'
-# gem 'jquery-rails', '~> 4.3', '>= 4.3.3'
+ gem 'therubyracer', '~> 0.12.3'
+ gem 'less-rails', '~> 4.0'
+ gem 'twitter-bootstrap-rails', '~> 4.0'
+ gem 'jquery-rails', '~> 4.3', '>= 4.3.3'
 # Use mysql as the database for Active Record
 gem 'mysql2', '~> 0.5.2'
 # Use Puma as the app server
