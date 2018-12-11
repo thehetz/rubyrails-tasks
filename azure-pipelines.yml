@@ -11,7 +11,7 @@ pool:
 
 variables:
 - group: MDLive-ProdVar
-  agentIP: 127.0.0.1
+  agentip: 127.0.0.1
 
 name: $(Date:yyyyMMdd)$(Rev:.r)
 
@@ -48,8 +48,9 @@ steps:
     DB_PASSWORD: $(DBPASSWORD)
 
 - script: |
-    $(agentIP)=$(ip route get 8.8.8.8 | awk 'NR==1 {print $NF}')
-    echo $(agentIP)
+    echo $(agentip)
+    $(agentip)=$(ip route get 8.8.8.8 | awk 'NR==1 {print $NF}')
+    echo $(agentip)
   displayName: 'Get agent ip address'
 
 - task: AzureCLI@1
