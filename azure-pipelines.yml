@@ -42,3 +42,6 @@ steps:
     archiveType: 'zip'
     archiveFile: '$(Build.ArtifactStagingDirectory)/$(Date:yyyyMMdd)$(Rev:.r).zip'
     replaceExistingArchive: true
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact: drop'
