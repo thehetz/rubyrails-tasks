@@ -48,7 +48,7 @@ steps:
   inputs:
     azureSubscription: 'MDLIveDB'
     scriptLocation: inlineScript
-    inlineScript: 'az mysql server firewall-rule create --resource-group MdLiveMySQl-RG --server-name $(DBHOST) --name AgentRule --start-ip-address 0.0.0.0 --end-ip-address 255.255.255.255'
+    inlineScript: 'az mysql server firewall-rule create --resource-group MdLiveMySQl-RG --server-name mdlivemysql --name AgentRule --start-ip-address 0.0.0.0 --end-ip-address 255.255.255.255'
 
 - script: bundle exec rake --trace db:migrate RAILS_ENV=production
   displayName: 'Run rake to migrate db and set environment'
@@ -58,7 +58,7 @@ steps:
   inputs:
     azureSubscription: 'MDLIveDB'
     scriptLocation: inlineScript
-    inlineScript: 'az mysql server firewall-rule delete --resource-group MdLiveMySQl-RG --server-name $(DBHOST) --name AgentRule'
+    inlineScript: 'az mysql server firewall-rule delete --resource-group MdLiveMySQl-RG --server-name mdlivemysql --name AgentRule'
 
 - task: ArchiveFiles@2
   displayName: 'Archive files'
