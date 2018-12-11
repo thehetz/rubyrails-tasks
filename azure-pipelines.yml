@@ -35,8 +35,8 @@ steps:
 - task: Bash@3
   displayName: 'Run export varibles script'
   inputs:
-    targetType: ./
-    filePath: exportDBVaribles.sh
+    targetType: 'filePath'
+    filePath: 'exportDBVaribles.sh'
     arguments: '-h $(DB-HOST) -d $(DB-DATABASE) -u $(DB-USERNAME) -p $(DB-PASSWORD)'
     failOnStderr: true
 
