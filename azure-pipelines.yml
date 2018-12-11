@@ -35,13 +35,16 @@ steps:
   displayName: 'Install rails gem'
 
 - bash: echo $DB-HOST
-  displayName: "Set environment variables for rake"
+  displayName: 'Set environment variables for rake'
   failOnStderr: true
   env: 
     DB-HOST: $(DB-HOST)
     DB-DATABASE: $(DB-DATABASE)
     DB-USERNAME: $(DB-USERNAME)
-    DB-PASSWORD: $(DB-PASSWORD) 
+    DB-PASSWORD: $(DB-PASSWORD)
+
+- script: bundle exec rake db:migrate RAILS_ENV=production
+  displayName: 'Run rake to migrate db and set environment'
 
 - task: ArchiveFiles@2
   displayName: 'Archive files'
