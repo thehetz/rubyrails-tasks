@@ -16,8 +16,6 @@
 #
 default: &default
   adapter: mysql2
-  encoding: utf8
-  pool: 5
   # For details on connection pooling, see Rails configuration guide
   # http://guides.rubyonrails.org/configuring.html#database-pooling
   username: chhetzle@mdlivemysql
