@@ -11,8 +11,8 @@ pool:
 
 variables:
 - group: MDLive-ProdVar
- 
- name: $(Date:yyyyMMdd)$(Rev:.r)
+
+name: $(Date:yyyyMMdd)$(Rev:.r)
 
 steps:
 - task: UseRubyVersion@0
