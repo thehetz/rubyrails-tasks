@@ -38,10 +38,10 @@ steps:
   displayName: 'Set environment variables for rake'
   failOnStderr: true
   env: 
-    DB_HOST: $(DBHOST)
-    DB_DATABASE: $(DBDATABASE)
-    DB_USERNAME: $(DBUSERNAME)
-    DB_PASSWORD: $(DBPASSWORD)
+    DB_HOST: 'mdlivemysql.mysql.database.azure.com'
+    DB_DATABASE: 'mdlive'
+    DB_USERNAME: 'chhetzle@mdlivemysql'
+    DB_PASSWORD: 'Charlee1218'
 
 - script: bundle exec rake --trace db:migrate RAILS_ENV=production
   displayName: 'Run rake to migrate db and set environment'
