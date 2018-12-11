@@ -23,7 +23,7 @@ steps:
 - script: sudo apt-get update
   displayName: 'Update packages'
 
-- script: sudo apt-get install libmysqlclient-dev
+- script: sudo apt-get install libmysqlclient-dev mysql-server 
   displayName: 'Install MySql client'
 
 - script: |
