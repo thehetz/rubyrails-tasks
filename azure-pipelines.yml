@@ -34,10 +34,10 @@ steps:
 - script: gem install rails && rails -v
   displayName: 'Install rails gem'
 
-- bash:
+- bash: echo $DB-HOST
   displayName: "Set environment variables for rake"
   failOnStderr: true
-  env: echo $DB-HOST
+  env: 
     DB-HOST: $(DB-HOST)
     DB-DATABASE: $(DB-DATABASE)
     DB-USERNAME: $(DB-USERNAME)
