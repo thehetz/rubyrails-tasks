@@ -32,13 +32,13 @@ steps:
 - script: gem install rails && rails -v
   displayName: 'gem install rails'
 
-- task: Bash@3
-  displayName: 'Run export varibles script'
-  inputs:
-    targetType: ./
-    filePath: exportDBVaribles.sh
-    arguments: '-h $(DB-HOST) -d $(DB-DATABASE) -u $(DB-USERNAME) -p $(DB-PASSWORD)'
-    failOnStderr: true
+- bash: 
+  displayName: 'Set environment varibles for rake job'
+  env:
+    DB-HOST: $(DB-HOST)
+    DB-DATABASE: $(DB-DATABASE)
+    DB-USERNAME: $(DB-USERNAME)
+    DB-PASSWORD: $(DB-PASSWORD)
 
 - script: bundle exec rake db:migrate RAILS_ENV=production
   displayName: 'bundle exec rake'
