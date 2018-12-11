@@ -40,7 +40,7 @@ steps:
     rootFolderOrFile: '$(System.DefaultWorkingDirectory)'
     includeRootFolder: false
     archiveType: 'zip'
-    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Date:yyyyMMdd)$(Rev:.r).zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
     replaceExistingArchive: true
 
 - task: PublishBuildArtifacts@1
