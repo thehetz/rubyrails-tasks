@@ -10,8 +10,6 @@ pool:
   vmImage: 'ubuntu-16.04' # other options: 'macOS-10.13', 'vs2017-win2016'
 
 variables:
-- name: agentip
-  value: 127.0.0.1
 - group: MDLive-ProdVar
 
 name: $(Date:yyyyMMdd)$(Rev:.r)
@@ -39,7 +37,7 @@ steps:
 - script: gem install rails && rails -v
   displayName: 'Install rails gem'
 
-- bash: echo $RAILS_ENV
+- bash: echo '$RAILS_ENV'
   displayName: 'Set environment variables for rake'
   failOnStderr: true
   env: 
@@ -50,9 +48,8 @@ steps:
     RAILS_ENV: production
 
 - script: |
-    echo $(agentip)
-    echo "##vso[task.setvariable variable=agentip]$(ip route get 8.8.8.8 | awk 'NR==1 {print $NF}')"
-    echo $(agentip)
+    ip=$(ip route get 8.8.8.8 | awk 'NR==1 {print $NF}')
+    echo $ip
   displayName: 'Get agent ip address'
 
 - task: AzureCLI@1
@@ -60,7 +57,7 @@ steps:
   inputs:
     azureSubscription: 'MDLIveDB'
     scriptLocation: inlineScript
-    inlineScript: 'az mysql server firewall-rule create --resource-group MdLiveMySQl-RG --server-name mdlivemysql --name AgentRule --start-ip-address 0.0.0.0 --end-ip-address 255.255.255.255'
+    inlineScript: 'az mysql server firewall-rule create --resource-group MdLiveMySQl-RG --server-name mdlivemysql --name AgentRule --start-ip-address $ip --end-ip-address $ip'
 
 - script: bundle exec rake --trace db:migrate
   displayName: 'Run rake to migrate db and set environment'
