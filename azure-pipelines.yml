@@ -32,13 +32,19 @@ steps:
 - script: gem install rails && rails -v
   displayName: 'gem install rails'
 
+- task: ShellScript@1
+  displayName: 'Run export varibles script'
+  inputs:
+    scriptPath: exportDBVaribles.sh
+    args: '-h $(DB-HOST) -d $(DB-DATABASE) -u $(DB-USERNAME) -p $(DB-PASSWORD)'
+
 - script: bundle exec rake db:migrate RAILS_ENV=production
   displayName: 'bundle exec rake'
 
-- script: $(RAILS_SECRET)=rails secret
-  displayName: 'Generate secret'
+# - script: $(RAILS-SECRET)=rails secret
+#  displayName: 'Generate secret'
 
-- task: ArchiveFiles@1
+- task: ArchiveFiles@2
   displayName: 'Archive files'
   inputs:
     rootFolder: '$(System.DefaultWorkingDirectory)'
@@ -46,5 +52,5 @@ steps:
     archiveType: zip
     name: $(Date:yyyyMMdd).$(Rev:.r)
 
-- task: PublishBuildArtifacts@1
+- task: PublishBuildArtifacts@2
   displayName: 'Publish Artifact: drop'
