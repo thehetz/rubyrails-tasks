@@ -38,13 +38,27 @@ steps:
   displayName: 'Set environment variables for rake'
   failOnStderr: true
   env: 
-    DB_HOST: 'mdlivemysql.mysql.database.azure.com'
-    DB_DATABASE: 'mdlive'
-    DB_USERNAME: 'chhetzle@mdlivemysql'
-    DB_PASSWORD: 'Charlee1218'
+    DB_HOST: $(DBHOST)
+    DB_DATABASE: $(DBDATABASE)
+    DB_USERNAME: $(DBUSERNAME)
+    DB_PASSWORD: $(DBPASSWORD)
+
+- task: AzureCLI@1
+  displayName: 'Open MySql firewall'
+  inputs:
+    azureSubscription: 'Microsoft Azure Internal Consumption (efabd6d6-e5d2-4220-9afa-3677f7e81ef5)'
+    scriptLocation: inlineScript
+    inlineScript: 'az mysql server firewall-rule create --resource-group MdLiveMySQl-RG --server-name $(DBHOST) --name AgentRule --start-ip-address 0.0.0.0 --end-ip-address 255.255.255.255'
 
 - script: bundle exec rake --trace db:migrate RAILS_ENV=production
   displayName: 'Run rake to migrate db and set environment'
+
+- task: AzureCLI@1
+  displayName: 'Close MySql firewall'
+  inputs:
+    azureSubscription: 'Microsoft Azure Internal Consumption (efabd6d6-e5d2-4220-9afa-3677f7e81ef5)'
+    scriptLocation: inlineScript
+    inlineScript: 'az mysql server firewall-rule delete --resource-group MdLiveMySQl-RG --server-name $(DBHOST) --name AgentRule'
 
 - task: ArchiveFiles@2
   displayName: 'Archive files'
