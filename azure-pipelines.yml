@@ -10,8 +10,6 @@ pool:
   vmImage: 'ubuntu-16.04' # other options: 'macOS-10.13', 'vs2017-win2016'
 
 variables:
-- name: AGENTIP
-  value: 127.0.0.1
 - group: MDLive-ProdVar
 
 name: $(Date:yyyyMMdd)$(Rev:.r)
@@ -51,8 +49,8 @@ steps:
 
 - script: |
     ip=$(ip route get 8.8.8.8 | awk 'NR==1 {print $NF}')
-    echo "##vso[task.setvariable variable=AGENTIP]$ip"
-    echo "Can read $1"
+    echo "##vso[task.setvariable variable=agentip]$ip"
+    echo "Can read $agentip"
   displayName: 'Get agent ip address'
 
 - task: AzureCLI@1
