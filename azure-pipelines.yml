@@ -48,12 +48,12 @@ name: $(Date:yyyyMMdd)$(Rev:.r)
 #    RAILS_ENV: production
 
 - bash: OpenFireWallPort.sh
+  workingDirectory: /usr/bin/az
   displayName: 'Open MySql firewall'
   failOnStderr: true
   env:
     AppId: 598cb472-3fd9-4b29-baed-6bdc808ddeab
     AppPass: BlmOemPYJyG2wjQs9KO21twXm3JT/5+I16qM7onhWgI=
-    
 
 #- script: bundle exec rake --trace db:migrate
 #  displayName: 'Run rake to migrate db'
