@@ -47,23 +47,12 @@ steps:
     DB_PASSWORD: $(DBPASSWORD)
     RAILS_ENV: production
 
-#- script: |
- #   ip=$(ip route get 8.8.8.8 | awk 'NR==1 {print $NF}')
-  #  export AGENT_IP=$ip
-  #displayName: 'Get agent ip address'
-
 - task: Bash@3
   displayName: 'Open MySql firewall'
   inputs:
     targetType: ./
-    filePath: exportDBVaribles.sh
-    arguments: '598cb472-3fd9-4b29-baed-6bdc808ddeab BlmOemPYJyG2wjQs9KO21twXm3JT/5+I16qM7onhWgI='  
-
-#- task: AzureCLI@1
-#  displayName: 'Open MySql firewall'
-#  inputs:
-#    azureSubscription: 'MDLIveDB'
-#    scriptPath: exportDBVaribles.sh
+    filePath: OpenFireWallPort.sh
+    arguments: $(AppId) $(AppPass) 
 
 - script: bundle exec rake --trace db:migrate
   displayName: 'Run rake to migrate db'
