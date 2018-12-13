@@ -23,8 +23,8 @@ steps:
 - script: sudo apt-get update
   displayName: 'Update packages'
 
-- script: sudo apt-get install mysql-server
-  displayName: 'Install MySql server'
+#- script: sudo apt-get install mysql-server
+# displayName: 'Install MySql server'
 
 - script: sudo apt-get install libmysqlclient-dev
   displayName: 'Install MySql client dev'
@@ -47,17 +47,16 @@ steps:
     DB_PASSWORD: $(DBPASSWORD)
     RAILS_ENV: production
 
-- script: |
-    ip=$(ip route get 8.8.8.8 | awk 'NR==1 {print $NF}')
-    export AGENT_IP=$ip
-  displayName: 'Get agent ip address'
+#- script: |
+ #   ip=$(ip route get 8.8.8.8 | awk 'NR==1 {print $NF}')
+  #  export AGENT_IP=$ip
+  #displayName: 'Get agent ip address'
 
 - task: AzureCLI@1
   displayName: 'Open MySql firewall'
   inputs:
     azureSubscription: 'MDLIveDB'
-    scriptLocation: inlineScript
-    inlineScript: 'echo $AGENT_IP && az mysql server firewall-rule create --resource-group MdLiveMySQl-RG --server-name mdlivemysql --name AgentRule --start-ip-address 0.0.0.0 --end-ip-address 255.255.255.255'
+    scriptPath: exportDBVaribles.sh
 
 - script: bundle exec rake --trace db:migrate
   displayName: 'Run rake to migrate db'

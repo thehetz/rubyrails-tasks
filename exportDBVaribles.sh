@@ -1,10 +1,4 @@
-while getopts h:d:u:p
-do
-case "${option}"
-in
-h) export DB-HOST=${OPTARG};;
-d) export DB-DATABASE=${OPTARG};;
-u) export DB-USERNAME=${OPTARG};;
-p) export DB-PASSWORD=${OPTAGR};;
-esac
-done
+ip=$(ip route get 8.8.8.8 | awk 'NR==1 {print $NF}')
+export AGENT_IP=$ip
+
+az mysql server firewall-rule create --resource-group MdLiveMySQl-RG --server-name mdlivemysql --name AgentRule --start-ip-address $AGENT_IP--end-ip-address $AGENT_IP
