@@ -47,12 +47,12 @@ steps:
 #    DB_PASSWORD: $(DBPASSWORD)
 #    RAILS_ENV: production
 
-- bash: echo $APPID
+- bash: echo $AppId $AppPass
   displayName: 'Open MySql firewall'
   failOnStderr: true
   env:
     AppId: $(AppId)
-    AppPass: $(AppPass)
+    AppPass: test
 
 #- script: bundle exec rake --trace db:migrate
 #  displayName: 'Run rake to migrate db'
