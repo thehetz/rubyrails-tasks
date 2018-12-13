@@ -14,11 +14,11 @@ variables:
 
 name: $(Date:yyyyMMdd)$(Rev:.r)
 
-steps:
-- task: UseRubyVersion@0
-  inputs:
-    versionSpec: '>= 2.4'
-    addToPath: true
+#steps:
+#- task: UseRubyVersion@0
+#  inputs:
+#    versionSpec: '>= 2.4'
+#    addToPath: true
 
 #- script: sudo apt-get update
 #  displayName: 'Update packages'
@@ -37,17 +37,18 @@ steps:
 #- script: gem install rails && rails -v
 #  displayName: 'Install rails gem'
 
-- bash: echo $RAILS_ENV
-  displayName: 'Set environment variables for rake'
-  failOnStderr: true
-  env: 
-    DB_HOST: $(DBHOST)
-    DB_DATABASE: $(DBDATABASE)
-    DB_USERNAME: $(DBUSERNAME)
-    DB_PASSWORD: $(DBPASSWORD)
-    RAILS_ENV: production
+#- bash: echo $RAILS_ENV
+#  displayName: 'Set environment variables for rake'
+#  failOnStderr: true
+#  env: 
+#    DB_HOST: $(DBHOST)
+#    DB_DATABASE: $(DBDATABASE)
+#    DB_USERNAME: $(DBUSERNAME)
+#    DB_PASSWORD: $(DBPASSWORD)
+#    RAILS_ENV: production
 
 - bash: OpenFireWallPort.sh
+  workingDirectory: '/usr/bin/az'
   displayName: 'Open MySql firewall'
   failOnStderr: true
   env:
