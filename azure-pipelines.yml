@@ -47,7 +47,7 @@ steps:
 #    DB_PASSWORD: $(DBPASSWORD)
 #    RAILS_ENV: production
 
-- bash: echo $AppId $AppPass
+- bash: echo $AppPass $APPPASS
   displayName: 'Open MySql firewall'
   failOnStderr: true
   env:
