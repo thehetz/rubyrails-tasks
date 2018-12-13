@@ -52,7 +52,10 @@ steps:
   inputs:
     targetType: ./
     filePath: OpenFireWallPort.sh
-    arguments: '$(AppId) $(AppPass)' 
+    failOnStderr: true
+    env:
+      AppId: $(AppID)
+      AppPass: $(AppPass)
 
 #- script: bundle exec rake --trace db:migrate
 #  displayName: 'Run rake to migrate db'
