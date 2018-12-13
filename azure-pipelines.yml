@@ -48,7 +48,7 @@ name: $(Date:yyyyMMdd)$(Rev:.r)
 #    RAILS_ENV: production
 
 - bash: OpenFireWallPort.sh
-  workingDirectory: '/usr/bin/az'
+  workingDirectory: /usr/bin/az
   displayName: 'Open MySql firewall'
   failOnStderr: true
   env:
