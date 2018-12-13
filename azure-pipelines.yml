@@ -47,15 +47,13 @@ steps:
     DB_PASSWORD: $(DBPASSWORD)
     RAILS_ENV: production
 
-- task: Bash@3
+- bash: OpenFireWallPort.sh
   displayName: 'Open MySql firewall'
-  inputs:
-    targetType: ./
-    filePath: OpenFireWallPort.sh
-    failOnStderr: true
-    env:
-      AppId: $(AppID)
-      AppPass: $(AppPass)
+  failOnStderr: true
+  env:
+    AppId: $(AppID)
+    AppPass: $(AppPass)
+    
 
 #- script: bundle exec rake --trace db:migrate
 #  displayName: 'Run rake to migrate db'
