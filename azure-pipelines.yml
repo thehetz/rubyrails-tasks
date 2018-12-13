@@ -20,22 +20,22 @@ steps:
     versionSpec: '>= 2.4'
     addToPath: true
 
-- script: sudo apt-get update
-  displayName: 'Update packages'
+#- script: sudo apt-get update
+#  displayName: 'Update packages'
 
 #- script: sudo apt-get install mysql-server
 # displayName: 'Install MySql server'
 
-- script: sudo apt-get install libmysqlclient-dev
-  displayName: 'Install MySql client dev'
+#- script: sudo apt-get install libmysqlclient-dev
+#  displayName: 'Install MySql client dev'
 
-- script: |
-    gem install bundler
-    bundle install --retry=3 --jobs=4 --path vendor/bundle
-  displayName: 'Bundle install'
-
-- script: gem install rails && rails -v
-  displayName: 'Install rails gem'
+#- script: |
+#    gem install bundler
+#    bundle install --retry=3 --jobs=4 --path vendor/bundle
+#  displayName: 'Bundle install'
+#
+#- script: gem install rails && rails -v
+#  displayName: 'Install rails gem'
 
 - bash: echo $RAILS_ENV
   displayName: 'Set environment variables for rake'
@@ -52,11 +52,11 @@ steps:
   inputs:
     targetType: ./
     filePath: OpenFireWallPort.sh
-    arguments: $(AppId) $(AppPass) 
+    arguments: '$(AppId) $(AppPass)' 
 
-- script: bundle exec rake --trace db:migrate
-  displayName: 'Run rake to migrate db'
-  continueOnError: true
+#- script: bundle exec rake --trace db:migrate
+#  displayName: 'Run rake to migrate db'
+#  continueOnError: true
 
 - task: AzureCLI@1
   displayName: 'Close MySql firewall'
