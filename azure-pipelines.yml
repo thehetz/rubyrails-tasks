@@ -14,7 +14,7 @@ variables:
 
 name: $(Date:yyyyMMdd)$(Rev:.r)
 
-#steps:
+steps:
 #- task: UseRubyVersion@0
 #  inputs:
 #    versionSpec: '>= 2.4'
@@ -52,8 +52,8 @@ name: $(Date:yyyyMMdd)$(Rev:.r)
   displayName: 'Open MySql firewall'
   failOnStderr: true
   env:
-    AppId: 598cb472-3fd9-4b29-baed-6bdc808ddeab
-    AppPass: BlmOemPYJyG2wjQs9KO21twXm3JT/5+I16qM7onhWgI=
+    AppId: $(AppId)
+    AppPass: $(AppPass)
 
 #- script: bundle exec rake --trace db:migrate
 #  displayName: 'Run rake to migrate db'
