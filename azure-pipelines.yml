@@ -15,27 +15,27 @@ variables:
 name: $(Date:yyyyMMdd)$(Rev:.r)
 
 steps:
-#- task: UseRubyVersion@0
-#  inputs:
-#    versionSpec: '>= 2.4'
-#    addToPath: true
+- task: UseRubyVersion@0
+  inputs:
+    versionSpec: '>= 2.4'
+    addToPath: true
 
-#- script: sudo apt-get update
-#  displayName: 'Update packages'
+- script: sudo apt-get update
+  displayName: 'Update packages'
 
 #- script: sudo apt-get install mysql-server
 # displayName: 'Install MySql server'
 
-#- script: sudo apt-get install libmysqlclient-dev
-#  displayName: 'Install MySql client dev'
+- script: sudo apt-get install libmysqlclient-dev
+  displayName: 'Install MySql client dev'
 
-#- script: |
-#    gem install bundler
-#    bundle install --retry=3 --jobs=4 --path vendor/bundle
-#  displayName: 'Bundle install'
-#
-#- script: gem install rails && rails -v
-#  displayName: 'Install rails gem'
+- script: |
+    gem install bundler
+    bundle install --retry=3 --jobs=4 --path vendor/bundle
+  displayName: 'Bundle install'
+
+- script: gem install rails && rails -v
+  displayName: 'Install rails gem'
 
 #- bash: echo $RAILS_ENV
 #  displayName: 'Set environment variables for rake'
@@ -60,6 +60,15 @@ steps:
 #- script: bundle exec rake --trace db:migrate
 #  displayName: 'Run rake to migrate db'
 #  continueOnError: true
+
+- bash: bundle exec rake --trace db:migrate RAILS_ENV=production
+  displayName: 'Run rake to migrate db'
+  failOnStderr: true
+  env: 
+    DB_HOST: $(DBHOST)
+    DB_DATABASE: $(DBDATABASE)
+    DB_USERNAME: $(DBUSERNAME)
+    DB_PASSWORD: $(DBPASSWORD)
 
 - task: AzureCLI@1
   displayName: 'Close MySql firewall'
