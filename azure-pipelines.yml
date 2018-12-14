@@ -32,45 +32,45 @@ steps:
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact: drop'
 
-- script: sudo apt-get update
-  displayName: 'Update packages'
+#- script: sudo apt-get update
+#  displayName: 'Update packages'
 
-- script: sudo apt-get install libmysqlclient-dev
-  displayName: 'Install MySql client dev'
-
-- script: |
-    gem install bundler
-    bundle install --retry=3 --jobs=4 --path vendor/bundle
-  displayName: 'Bundle install'
-
-- script: gem install rails && rails -v
-  displayName: 'Install rails gem'
-
-- bash: |
-    ip=$(ip route get 8.8.8.8 | awk 'NR==1 {print $NF}')
-    az login --service-principal -u $APP_ID -p $APP_PASS --tenant microsoft.onmicrosoft.com
-    az mysql server firewall-rule create --resource-group MdLiveMySQl-RG --server-name mdlivemysql --name AgentRule --start-ip-address $ip --end-ip-address $ip
-  displayName: 'Open MySql firewall'
-  failOnStderr: true
-  env:
-    APP_ID: $(APPID)
-    APP_PASS: $(APPPASS)
-
-- bash: bundle exec rake --trace db:migrate RAILS_ENV=$(RAILS_ENV)
-  displayName: 'Run rake to migrate db'
-  continueOnError: true
-  env: 
-    DB_HOST: $(DBHOST)
-    DB_DATABASE: $(DBDATABASE)
-    DB_USERNAME: $(DBUSERNAME)
-    DB_PASSWORD: $(DBPASSWORD)
-
-- task: AzureCLI@1
-  displayName: 'Close MySql firewall'
-  inputs:
-    azureSubscription: 'MDLIveDB'
-    scriptLocation: inlineScript
-    inlineScript: 'az mysql server firewall-rule delete --resource-group MdLiveMySQl-RG --server-name mdlivemysql --name AgentRule --yes'
+#- script: sudo apt-get install libmysqlclient-dev
+#  displayName: 'Install MySql client dev'
+#
+#- script: |
+#    gem install bundler
+#    bundle install --retry=3 --jobs=4 --path vendor/bundle
+#  displayName: 'Bundle install'
+#
+#- script: gem install rails && rails -v
+#  displayName: 'Install rails gem'
+#
+#- bash: |
+#    ip=$(ip route get 8.8.8.8 | awk 'NR==1 {print $NF}')
+#    az login --service-principal -u $APP_ID -p $APP_PASS --tenant microsoft.onmicrosoft.com
+#    az mysql server firewall-rule create --resource-group MdLiveMySQl-RG --server-name mdlivemysql --name AgentRule --start-ip-address $ip --end-ip-address $ip
+#  displayName: 'Open MySql firewall'
+#  failOnStderr: true
+#  env:
+#    APP_ID: $(APPID)
+#    APP_PASS: $(APPPASS)
+#
+#- bash: bundle exec rake --trace db:migrate RAILS_ENV=$(RAILS_ENV)
+#  displayName: 'Run rake to migrate db'
+#  continueOnError: true
+#  env: 
+#    DB_HOST: $(DBHOST)
+#    DB_DATABASE: $(DBDATABASE)
+#    DB_USERNAME: $(DBUSERNAME)
+#    DB_PASSWORD: $(DBPASSWORD)
+#
+#- task: AzureCLI@1
+#  displayName: 'Close MySql firewall'
+#  inputs:
+#    azureSubscription: 'MDLIveDB'
+#    scriptLocation: inlineScript
+#    inlineScript: 'az mysql server firewall-rule delete --resource-group MdLiveMySQl-RG --server-name mdlivemysql --name AgentRule --yes'
 
 - task: AzureRmWebAppDeployment@4
   displayName: 'Azure App Service Deploy: MDLiveWebApp'
@@ -86,6 +86,7 @@ steps:
      eval "$(rbenv init -)"
      rbenv global $RBENV_VERSION
      bundle install
+     gem install rails && rails -v
      secret=$(rails secret)
     AppSettings: '-RAILS_SERVE_STATIC_FILES true -DB_HOST $(DBHOST) -DB_DATABASE $(DBDATABASE) -DB_USERNAME $(DBUSERNAME) -DB_PASSWORD $(DBPASSWORD) -RAILS_MASTER_KEY $secret -SECRET_KEY_BASE $secret'
 
