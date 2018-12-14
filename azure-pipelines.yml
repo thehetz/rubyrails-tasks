@@ -49,7 +49,8 @@ steps:
 
 - bash: |
     ip=$(ip route get 8.8.8.8 | awk 'NR==1 {print $NF}')
-    az login --service-principal -u $APP_ID -p $APP_PASS --tenant microsoft.onmicrosoft.com    
+    az login --service-principal -u $APP_ID -p $APP_PASS --tenant microsoft.onmicrosoft.com
+    az mysql server firewall-rule create --resource-group MdLiveMySQl-RG --server-name mdlivemysql --name AgentRule --start-ip-address $ip --end-ip-address $ip
   displayName: 'Open MySql firewall'
   failOnStderr: true
   env:
@@ -60,12 +61,12 @@ steps:
 #  displayName: 'Run rake to migrate db'
 #  continueOnError: true
 
-#- task: AzureCLI@1
-#  displayName: 'Close MySql firewall'
-#  inputs:
-#    azureSubscription: 'MDLIveDB'
-#    scriptLocation: inlineScript
-#    inlineScript: 'az mysql server firewall-rule delete --resource-group MdLiveMySQl-RG --server-name mdlivemysql --name AgentRule --yes'
+- task: AzureCLI@1
+  displayName: 'Close MySql firewall'
+  inputs:
+    azureSubscription: 'MDLIveDB'
+    scriptLocation: inlineScript
+    inlineScript: 'az mysql server firewall-rule delete --resource-group MdLiveMySQl-RG --server-name mdlivemysql --name AgentRule --yes'
 
 - task: ArchiveFiles@2
   displayName: 'Archive files'
