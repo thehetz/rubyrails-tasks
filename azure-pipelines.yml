@@ -47,9 +47,12 @@ steps:
 #    DB_PASSWORD: $(DBPASSWORD)
 #    RAILS_ENV: production
 
-- bash: OpenFileWallPort.sh
+- task: Bash@3
   displayName: 'Open MySql firewall'
-  failOnStderr: true
+  inputs:
+    targetType: ./
+    filePath: OpenFireWallPort.sh
+    failOnStderr: true
   env:
     APP_ID: $(AppId)
     APP_PASS: $(AppPass)
