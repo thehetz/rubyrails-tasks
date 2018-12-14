@@ -52,7 +52,7 @@ steps:
   failOnStderr: true
   env:
     AppId: $(AppId)
-    APP_PASS: test
+    APP_PASS: $(AppPass)
 
 #- script: bundle exec rake --trace db:migrate
 #  displayName: 'Run rake to migrate db'
