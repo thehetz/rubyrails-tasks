@@ -54,8 +54,8 @@ steps:
     filePath: OpenFireWallPort.sh
     failOnStderr: true
   env:
-    APP_ID: $(AppId)
-    APP_PASS: $(AppPass)
+    APP_ID: $(APPID
+    APP_PASS: $(APPPASS)
 
 #- script: bundle exec rake --trace db:migrate
 #  displayName: 'Run rake to migrate db'
