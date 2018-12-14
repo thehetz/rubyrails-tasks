@@ -56,14 +56,14 @@ steps:
     APP_ID: $(APPID)
     APP_PASS: $(APPPASS)
 
-- bash: bundle exec rake --trace db:migrate RAILS_ENV=production
+- bash: bundle exec rake --trace db:migrate RAILS_ENV=$(RAILS_ENV)
   displayName: 'Run rake to migrate db'
   failOnStderr: true
   continueOnError: true
   env: 
     DB_HOST: mdlivemysql.mysql.database.azure.com
     DB_DATABASE: mdlive
-    DB_USERNAME: 'chhetzle@mdlivemysql'
+    DB_USERNAME: chhetzle@mdlivemysql
     DB_PASSWORD: Charlee1218
 
 - task: AzureCLI@1
