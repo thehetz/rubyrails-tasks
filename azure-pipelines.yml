@@ -58,13 +58,12 @@ steps:
 
 - bash: bundle exec rake --trace db:migrate RAILS_ENV=$(RAILS_ENV)
   displayName: 'Run rake to migrate db'
-  failOnStderr: true
   continueOnError: true
   env: 
-    DB_HOST: mdlivemysql.mysql.database.azure.com
-    DB_DATABASE: mdlive
-    DB_USERNAME: chhetzle@mdlivemysql
-    DB_PASSWORD: Charlee1218
+    DB_HOST: $(DBHOST)
+    DB_DATABASE: $(DBDATABASE)
+    DB_USERNAME: $(DBUSERNAME)
+    DB_PASSWORD: $(DBPASSWORD)
 
 - task: AzureCLI@1
   displayName: 'Close MySql firewall'
@@ -72,3 +71,22 @@ steps:
     azureSubscription: 'MDLIveDB'
     scriptLocation: inlineScript
     inlineScript: 'az mysql server firewall-rule delete --resource-group MdLiveMySQl-RG --server-name mdlivemysql --name AgentRule --yes'
+
+- task: AzureRmWebAppDeployment@4
+  displayName: 'Azure App Service Deploy: MDLiveWebApp'
+  inputs:
+    azureSubscription: 'MDLiveWebApp - Service Endpoint'
+    appType: webAppLinux
+    WebAppName: MDLiveWebApp
+    packageForLinux: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+    RuntimeStack: 'RUBY|2.3'
+    ScriptType: 'Inline Script'
+    InlineScript: |
+     RBENV_VERSION=$(ls /usr/local/.rbenv/versions | grep 2.3 | tail -n 1)
+     eval "$(rbenv init -)"
+     rbenv global $RBENV_VERSION
+     bundle install
+     secret=$(rails secret)
+    AppSettings: '-RAILS_SERVE_STATIC_FILES true -DB_HOST $(DBHOST) -DB_DATABASE $(DBDATABASE) -DB_USERNAME $(DBUSERNAME) -DB_PASSWORD $(DBPASSWORD) -RAILS_MASTER_KEY $secret -SECRET_KEY_BASE $secret'
+
+
