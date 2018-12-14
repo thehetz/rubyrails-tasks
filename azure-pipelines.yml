@@ -53,7 +53,7 @@ steps:
   displayName: 'Open MySql firewall'
   failOnStderr: true
   env:
-    APP_ID: $(APPID
+    APP_ID: $(APPID)
     APP_PASS: $(APPPASS)
 
 #- script: bundle exec rake --trace db:migrate
