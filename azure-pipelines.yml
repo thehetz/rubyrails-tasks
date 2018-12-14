@@ -47,11 +47,11 @@ steps:
 #    DB_PASSWORD: $(DBPASSWORD)
 #    RAILS_ENV: production
 
-- bash: echo $APP_PASS
+- bash: OpenFileWallPort.sh
   displayName: 'Open MySql firewall'
   failOnStderr: true
   env:
-    AppId: $(AppId)
+    APP_ID: $(AppId)
     APP_PASS: $(AppPass)
 
 #- script: bundle exec rake --trace db:migrate
