@@ -78,30 +78,35 @@ steps:
     DB_USERNAME: $(DBUSERNAME)
     DB_PASSWORD: $(DBPASSWORD)
 
-- task: ArchiveFiles@2
-  displayName: 'Archive files'
-  inputs:
-    rootFolderOrFile: '$(System.DefaultWorkingDirectory)'
-    includeRootFolder: false
-    archiveType: 'zip'
-    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
-    replaceExistingArchive: true
+- bash: |
+    git remote add azure-prod https://nyrrdemo:Charlee1218@mdliveprod.scm.azurewebsites.net:443/mdliveprod.git 
+    git push azure-prod master
+  displayName: 'Push to Azure'
 
-- task: PublishBuildArtifacts@1
-  displayName: 'Publish Artifact: drop'
-
-- task: AzureRmWebAppDeployment@4
-  displayName: 'Azure App Service Deploy: MDLiveProd'
-  inputs:
-    azureSubscription: 'mdliveprod - Service Endpoint'
-    appType: webAppLinux
-    WebAppName: MDLiveProd
-    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
-    RuntimeStack: 'RUBY|2.3'
-    ScriptType: 'Inline Script'
-    deploymentType: 'zipDeploy'
-    InlineScript: |
-     RBENV_VERSION=$(ls /usr/local/.rbenv/versions | grep 2.3 | tail -n 1)
-     eval "$(rbenv init -)"
-     rbenv global $RBENV_VERSION
-     bundle install --path vendor/bundle
+#- task: ArchiveFiles@2
+#  displayName: 'Archive files'
+#  inputs:
+#    rootFolderOrFile: '$(System.DefaultWorkingDirectory)'
+#    includeRootFolder: false
+#    archiveType: 'zip'
+#    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+#    replaceExistingArchive: true
+#
+#- task: PublishBuildArtifacts@1
+#  displayName: 'Publish Artifact: drop'
+#
+#- task: AzureRmWebAppDeployment@4
+#  displayName: 'Azure App Service Deploy: MDLiveProd'
+#  inputs:
+#    azureSubscription: 'mdliveprod - Service Endpoint'
+#    appType: webAppLinux
+#    WebAppName: MDLiveProd
+#    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+#    RuntimeStack: 'RUBY|2.3'
+#    ScriptType: 'Inline Script'
+#    deploymentType: 'zipDeploy'
+#    InlineScript: |
+#     RBENV_VERSION=$(ls /usr/local/.rbenv/versions | grep 2.3 | tail -n 1)
+#     eval "$(rbenv init -)"
+#     rbenv global $RBENV_VERSION
+#     bundle install --path vendor/bundle
