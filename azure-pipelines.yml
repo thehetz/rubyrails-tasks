@@ -96,7 +96,7 @@ steps:
     azureSubscription: 'mdliveprod - Service Endpoint'
     appType: webAppLinux
     WebAppName: MDLiveProd
-    packageForLinux: '$(System.DefaultWorkingDirectory)/**/$(Build.BuildId).zip'
+    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
     RuntimeStack: 'RUBY|2.3'
     ScriptType: 'Inline Script'
     deploymentType: 'zipDeploy'
