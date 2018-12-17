@@ -86,8 +86,7 @@ steps:
      eval "$(rbenv init -)"
      rbenv global $RBENV_VERSION
      bundle install
-     gem install rails && rails -v
-     secret=$(rails secret)
-    AppSettings: '-RAILS_SERVE_STATIC_FILES true -DB_HOST $(DBHOST) -DB_DATABASE $(DBDATABASE) -DB_USERNAME $(DBUSERNAME) -DB_PASSWORD $(DBPASSWORD) -RAILS_MASTER_KEY $secret -SECRET_KEY_BASE $secret'
+     bundle exec rake --trace assets:precompile
+    AppSettings: '-RAILS_SERVE_STATIC_FILES true -DB_HOST $(DBHOST) -DB_DATABASE $(DBDATABASE) -DB_USERNAME $(DBUSERNAME) -DB_PASSWORD $(DBPASSWORD)'
 
 
