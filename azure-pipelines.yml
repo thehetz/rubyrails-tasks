@@ -101,7 +101,7 @@ steps:
     ScriptType: 'Inline Script'
     deploymentType: 'zipDeploy'
     deployToSlotOrASE: true
-    slotName: '$(RAILS_ENV)'
+    slotName: 'mdliveprod-$(RAILS_ENV)'
     InlineScript: |
      RBENV_VERSION=$(ls /usr/local/.rbenv/versions | grep 2.3 | tail -n 1)
      eval "$(rbenv init -)"
