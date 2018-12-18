@@ -91,7 +91,7 @@ steps:
   displayName: 'Publish Artifact: drop'
 
 - task: AzureRmWebAppDeployment@4
-  displayName: 'Azure App Service Deploy: MDLiveProd'
+  displayName: 'Azure App Service Deploy MDLiveProd'
   inputs:
     azureSubscription: 'mdliveprod - Service Endpoint'
     appType: webAppLinux
