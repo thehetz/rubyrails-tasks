@@ -99,6 +99,7 @@ steps:
     packageForLinux: '$(Build.ArtifactStagingDirectory)/*.zip'
     RuntimeStack: 'RUBY|2.3'
     ScriptType: 'Inline Script'
+    ResourceGroupName: 'MDLiveWebApp-rg'
     deploymentType: 'zipDeploy'
     deployToSlotOrASE: true
     slotName: 'mdliveprod-$(RAILS_ENV)'
@@ -107,3 +108,5 @@ steps:
      eval "$(rbenv init -)"
      rbenv global $RBENV_VERSION
      bundle install --path vendor/bundle
+
+
