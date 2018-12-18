@@ -3,9 +3,6 @@
 # Add steps that install rails, analyze code, save build artifacts, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/ruby
 
-# queue:
-#  name: Hosted Ubuntu 1604
-
 resources:
 - repo: self
 
@@ -67,8 +64,13 @@ steps:
     bundle exec rake --trace assets:precompile
     secret=$(rails secret)
     az login --service-principal -u $PROD_APP_ID -p $PROD_APP_PASS --tenant microsoft.onmicrosoft.com
+    if [ "$RAILS_ENV" == "production" ]; then
+    az webapp config appsettings set --name MDLiveProd --resource-group mdlivewebapp-rg --settings DB_HOST=$DB_HOST DB_DATABASE=$DB_DATABASE DB_USERNAME=$DB_USERNAME DB_PASSWORD=$DB_PASSWORD
+    az webapp config appsettings set --name MDLiveProd --resource-group mdlivewebapp-rg --settings RAILS_MASTER_KEY=$secret SECRET_KEY_BASE=$secret RAILS_SERVE_STATIC_FILES="true" ASSETS_PRECOMPILE="true"
+    else
     az webapp config appsettings set --name MDLiveProd --resource-group mdlivewebapp-rg --settings DB_HOST=$DB_HOST DB_DATABASE=$DB_DATABASE DB_USERNAME=$DB_USERNAME DB_PASSWORD=$DB_PASSWORD --slot $(RAILS_ENV)
     az webapp config appsettings set --name MDLiveProd --resource-group mdlivewebapp-rg --settings RAILS_MASTER_KEY=$secret SECRET_KEY_BASE=$secret RAILS_SERVE_STATIC_FILES="true" ASSETS_PRECOMPILE="true" --slot $(RAILS_ENV)
+    fi
   displayName: 'Configure web application settings'
   env:
     PROD_APP_ID: $(PRODAPPID)
