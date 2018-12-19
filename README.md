@@ -11,7 +11,14 @@ This is a sample application that you can use to follow along with the tutorial 
 
 This sample application is generated from the default Rails project and modified minimally to make it work with Azure App Service. 
 
-[![Build Status](https://studevcom.visualstudio.com/MDLive-DevOps/_apis/build/status/MDLive-Prod?branchName=master)](https://studevcom.visualstudio.com/MDLive-DevOps/_build/latest?definitionId=10?branchName=master)
+## Production status
+
+
+## Test status
+
+
+## Development status
+
 
 ## License
 
