@@ -92,23 +92,23 @@ steps:
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact: drop'
 
-- task: AzureRmWebAppDeployment@4
-  displayName: 'Azure App Service Deploy MDLiveProd'
-  inputs:
-    azureSubscription: 'mdliveprod - Service Endpoint'
-    appType: webAppLinux
-    WebAppName: MDLiveProd
-    packageForLinux: '$(Build.ArtifactStagingDirectory)/*.zip'
-    RuntimeStack: 'RUBY|2.3'
-    ScriptType: 'Inline Script'
-    ResourceGroupName: 'MDLiveWebApp-rg'
-    deploymentType: 'zipDeploy'
-    deployToSlotOrASE: true
-    slotName: '$(RAILS_ENV)'
-    InlineScript: |
-     RBENV_VERSION=$(ls /usr/local/.rbenv/versions | grep 2.3 | tail -n 1)
-     eval "$(rbenv init -)"
-     rbenv global $RBENV_VERSION
-     bundle install --path vendor/bundle
+#- task: AzureRmWebAppDeployment@4
+#  displayName: 'Azure App Service Deploy MDLiveProd'
+#  inputs:
+#    azureSubscription: 'mdliveprod - Service Endpoint'
+#    appType: webAppLinux
+#    WebAppName: MDLiveProd
+#    packageForLinux: '$(Build.ArtifactStagingDirectory)/*.zip'
+#    RuntimeStack: 'RUBY|2.3'
+#    ScriptType: 'Inline Script'
+#    ResourceGroupName: 'MDLiveWebApp-rg'
+#    deploymentType: 'zipDeploy'
+#    deployToSlotOrASE: true
+#    slotName: '$(RAILS_ENV)'
+#    InlineScript: |
+#     RBENV_VERSION=$(ls /usr/local/.rbenv/versions | grep 2.3 | tail -n 1)
+#     eval "$(rbenv init -)"
+#     rbenv global $RBENV_VERSION
+#     bundle install --path vendor/bundle
 
 
